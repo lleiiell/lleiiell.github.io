@@ -1,5 +1,3 @@
-## Welcome to lleiiell workspace
-
-### init
+## lleiiell's workspace
 
 - [init](init.md)
