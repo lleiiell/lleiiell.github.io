@@ -1,3 +1,3 @@
 ## lleiiell's workspace
 
-- [init](init.md)
+- [Promql examples](promql_examples.md)
