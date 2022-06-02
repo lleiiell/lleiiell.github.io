@@ -4,25 +4,46 @@
 
 ```bash
 # 如果执行了至少 1 次写入操作， 将每 60 秒保存一次数据库快照
-docker run --name myredis -p 6379:6379 --restart=always -v /data/redis:/data -d redis redis-server --save 60 1 --loglevel warning
+docker run \
+--name myredis \
+-p 6379:6379 \
+--restart=always \
+-v /data/redis:/data \
+-d redis redis-server \
+--save 60 1 \
+--loglevel warning
 
 # 连接redis
-docker run -it --rm redis redis-cli -h hostAddr
+docker run \
+-it \
+--rm redis redis-cli \
+-h hostAddr
 
 # 自定义config
-docker run -v /myredis/conf:/usr/local/etc/redis --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+docker run \
+-v /myredis/conf:/usr/local/etc/redis \
+--name myredis redis redis-server /usr/local/etc/redis/redis.conf
 ```
 
 ### nginx
 
 ```bash
-docker run -p 80:80 --name mynginx -d nginx
+docker run \
+-p 80:80 \
+--name mynginx \
+-d nginx
 
 # 自定义webroot（/data/root:/usr/share/nginx/html）
 # 自定义配置（/data/nginx:/etc/nginx）
 # 只读模式（:ro）
-docker run -p 80:80 -p 443:443 --name mynginx -v /data/root:/usr/share/nginx/html:ro -v /data/nginx:/etc/nginx:ro --restart=always  -d nginx
-
+docker run \
+-p 80:80 \
+-p 443:443 \
+--name mynginx \
+-v /data/root:/usr/share/nginx/html:ro \
+-v /data/nginx:/etc/nginx:ro \
+--restart=always  \
+-d nginx
 ```
 
 默认配置
@@ -72,14 +93,31 @@ http {
 ### mysql
 
 ```bash
-docker run --name mymysql --restart=always -v /data/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5
+docker run \
+--name mymysql \
+--restart=always \
+-v /data/mysql:/var/lib/mysql \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-d mysql:5
 
 # 开启binlog
-docker run --name mymysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5 --log-bin=mysql-bin.log --binlog-format=ROW --server-id=1
+docker run \
+--name mymysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-d mysql:5 \
+--log-bin=mysql-bin.log \
+--binlog-format=ROW \
+--server-id=1
 
 
 # 连接mysql
-docker run -it --rm mysql mysql -hmyhost -uroot -p123456
+docker run \
+-it \
+--rm mysql mysql \
+-hmyhost \
+-uroot \
+-p123456
 ```
 
 ## 其他
