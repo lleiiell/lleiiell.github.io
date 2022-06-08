@@ -65,6 +65,8 @@ http_requests_total{environment=~"staging|testing|development",method!="GET"}
 
 # 正则表达式匹配完全锚定。env=~"foo"被视为env=~"^foo$"。
 http_requests_total{env=~"foo",method!="GET"}
+# ip范围
+MemUsedPercent{__DATABASE__="d1",ip=~"(11\\.22\\.2(4|5|6|7)\\..*)"}[1m:1m]
 ```
 
 ### dalta
