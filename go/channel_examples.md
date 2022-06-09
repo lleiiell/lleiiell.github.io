@@ -7,15 +7,15 @@
 
 ```go
 func TestHelloChan(t *testing.T) {
-	msg := make(chan string)
+    msg := make(chan string)
 
-	go func() {
-		time.Sleep(100 * time.Millisecond)
-		msg <- "hello world"
-	}()
+    go func() {
+        time.Sleep(100 * time.Millisecond)
+        msg <- "hello world"
+    }()
 
-	fmt.Println("prePrint", time.Now())
-	fmt.Println("msg", <-msg, time.Now())
+    fmt.Println("prePrint", time.Now())
+    fmt.Println("msg", <-msg, time.Now())
 }
 
 
@@ -30,13 +30,13 @@ func TestHelloChan(t *testing.T) {
 
 ```go
 func TestBuffer(t *testing.T) {
-	c1 := make(chan int, 2)
+    c1 := make(chan int, 2)
 
-	c1 <- 1
-	c1 <- 2
+    c1 <- 1
+    c1 <- 2
 
-	fmt.Println("c1", <-c1)
-	fmt.Println("c1", <-c1)
+    fmt.Println("c1", <-c1)
+    fmt.Println("c1", <-c1)
 }
 
 
@@ -52,25 +52,25 @@ func TestBuffer(t *testing.T) {
 
 ```go
 func TestDirection(t *testing.T) {
-	pings := make(chan string, 1)
-	pongs := make(chan string, 1)
-	go func(pings chan<- string, msg string) {
-		pings <- msg
+    pings := make(chan string, 1)
+    pongs := make(chan string, 1)
+    go func(pings chan<- string, msg string) {
+        pings <- msg
 
-		// 无效运算: <-pings (从仅发送类型 chan<- string 接收
-		//<-pings
-	}(pings, "hello")
+        // 无效运算: <-pings (从仅发送类型 chan<- string 接收
+        //<-pings
+    }(pings, "hello")
 
-	go func(pings <-chan string, pongs chan<- string) {
-		
-		// 无效运算: pings <- "world" (发送到仅接收类型 <-chan string)
-		//pings <- "world"
-		
-		msg := <-pings
-		pongs <- msg
-	}(pings, pongs)
+    go func(pings <-chan string, pongs chan<- string) {
+        
+        // 无效运算: pings <- "world" (发送到仅接收类型 <-chan string)
+        //pings <- "world"
+        
+        msg := <-pings
+        pongs <- msg
+    }(pings, pongs)
 
-	fmt.Println(<-pongs)
+    fmt.Println(<-pongs)
 }
 
 
@@ -84,29 +84,29 @@ select 等待多个通道操作
 
 ```go
 func TestSelect(t *testing.T) {
-	c1 := make(chan string)
-	c2 := make(chan string)
-	go func() {
-		time.Sleep(1 * time.Second)
-		c1 <- "hello"
-	}()
-	go func() {
-		time.Sleep(2 * time.Second)
-		c2 <- "world"
-	}()
+    c1 := make(chan string)
+    c2 := make(chan string)
+    go func() {
+        time.Sleep(1 * time.Second)
+        c1 <- "hello"
+    }()
+    go func() {
+        time.Sleep(2 * time.Second)
+        c2 <- "world"
+    }()
 
-	fmt.Println("preFor", time.Now())
-	for i := 0; i < 2; i++ {
-		select {
-		case msg1 := <-c1:
-			fmt.Println("c1", msg1, time.Now())
-		case msg2 := <-c2:
-			fmt.Println("c2", msg2, time.Now())
+    fmt.Println("preFor", time.Now())
+    for i := 0; i < 2; i++ {
+        select {
+        case msg1 := <-c1:
+            fmt.Println("c1", msg1, time.Now())
+        case msg2 := <-c2:
+            fmt.Println("c2", msg2, time.Now())
 
-		}
-	}
+        }
+    }
 
-	fmt.Println("done", time.Now())
+    fmt.Println("done", time.Now())
 }
 
 
@@ -121,30 +121,30 @@ select 超时
 
 ```go
 func TestTimeout(t *testing.T) {
-	c1 := make(chan string, 1)
+    c1 := make(chan string, 1)
 
-	go func() {
-		time.Sleep(2 * time.Second)
-		c1 <- "hello"
-	}()
+    go func() {
+        time.Sleep(2 * time.Second)
+        c1 <- "hello"
+    }()
 
-	fmt.Println("run1", time.Now())
-	select {
-	case msg := <-c1:
-		fmt.Println("c1", msg, time.Now())
-	case <-time.After(1 * time.Second):
-		fmt.Println("1s超时", time.Now())
+    fmt.Println("run1", time.Now())
+    select {
+    case msg := <-c1:
+        fmt.Println("c1", msg, time.Now())
+    case <-time.After(1 * time.Second):
+        fmt.Println("1s超时", time.Now())
 
-	}
+    }
 
-	fmt.Println("run2", time.Now())
-	select {
-	case msg := <-c1:
-		fmt.Println("c1", msg, time.Now())
-	case <-time.After(1 * time.Second):
-		fmt.Println("1s超时", time.Now())
-	}
-	fmt.Println("done", time.Now())
+    fmt.Println("run2", time.Now())
+    select {
+    case msg := <-c1:
+        fmt.Println("c1", msg, time.Now())
+    case <-time.After(1 * time.Second):
+        fmt.Println("1s超时", time.Now())
+    }
+    fmt.Println("done", time.Now())
 }
 
 
@@ -159,44 +159,44 @@ select default
 
 ```go
 func TestDefault(t *testing.T) {
-	c1 := make(chan string)
+    c1 := make(chan string)
 
-	fmt.Println("run", time.Now())
-	msg := "hello"
+    fmt.Println("run", time.Now())
+    msg := "hello"
 
-	// r1
-	select {
-	case c1 <- msg:
-		fmt.Println("r1 c1", <-c1, time.Now())
-	default:
-		fmt.Println("r1 default", time.Now())
-	}
+    // r1
+    select {
+    case c1 <- msg:
+        fmt.Println("r1 c1", <-c1, time.Now())
+    default:
+        fmt.Println("r1 default", time.Now())
+    }
 
-	// r2
-	go func() {
-		fmt.Println("r2 c1", <-c1, time.Now())
-	}()
-	for i := 0; i < 2; i++ {
-		select {
-		case c1 <- msg:
-			fmt.Println("r2 msg", msg, "i", i, time.Now())
-		default:
-			fmt.Println("r2 default", "i", i, time.Now())
-			time.Sleep(1 * time.Second)
-		}
+    // r2
+    go func() {
+        fmt.Println("r2 c1", <-c1, time.Now())
+    }()
+    for i := 0; i < 2; i++ {
+        select {
+        case c1 <- msg:
+            fmt.Println("r2 msg", msg, "i", i, time.Now())
+        default:
+            fmt.Println("r2 default", "i", i, time.Now())
+            time.Sleep(1 * time.Second)
+        }
 
-	}
+    }
 
-	// r3
-	c1 = make(chan string, 1)
-	select {
-	case c1 <- msg:
-		fmt.Println("r3 c1", <-c1, time.Now())
-	default:
-		fmt.Println("r3 default", time.Now())
-	}
+    // r3
+    c1 = make(chan string, 1)
+    select {
+    case c1 <- msg:
+        fmt.Println("r3 c1", <-c1, time.Now())
+    default:
+        fmt.Println("r3 default", time.Now())
+    }
 
-	fmt.Println("done", time.Now())
+    fmt.Println("done", time.Now())
 
 }
 
@@ -219,35 +219,35 @@ func TestDefault(t *testing.T) {
 
 ```go
 func TestClose(t *testing.T) {
-	jobs := make(chan int, 5)
-	done := make(chan bool)
+    jobs := make(chan int, 5)
+    done := make(chan bool)
 
-	fmt.Println("run", time.Now())
+    fmt.Println("run", time.Now())
 
-	go func() {
-		for {
-			j, more := <-jobs
-			if more {
-				fmt.Println("received", "job", j, time.Now())
-			} else {
-				fmt.Println("no more", "job", j, time.Now())
+    go func() {
+        for {
+            j, more := <-jobs
+            if more {
+                fmt.Println("received", "job", j, time.Now())
+            } else {
+                fmt.Println("no more", "job", j, time.Now())
 
-				time.Sleep(1 * time.Second)
-				done <- true
-				return
-			}
-		}
-	}()
+                time.Sleep(1 * time.Second)
+                done <- true
+                return
+            }
+        }
+    }()
 
-	for i := 0; i < 3; i++ {
-		jobs <- i
-		fmt.Println("sent job", i, time.Now())
-	}
+    for i := 0; i < 3; i++ {
+        jobs <- i
+        fmt.Println("sent job", i, time.Now())
+    }
 
-	close(jobs)
-	fmt.Println("closed", time.Now())
+    close(jobs)
+    fmt.Println("closed", time.Now())
 
-	fmt.Println("done", <-done, time.Now())
+    fmt.Println("done", <-done, time.Now())
 }
 
 
@@ -272,25 +272,25 @@ example1
 ```go
 func TestRange(t *testing.T) {
 
-	queue := make(chan string, 2)
+    queue := make(chan string, 2)
 
-	fmt.Println("run", time.Now())
-	queue <- "one"
-	queue <- "two"
+    fmt.Println("run", time.Now())
+    queue <- "one"
+    queue <- "two"
 
-	// fatal error: all goroutines are asleep - deadlock!
-	// for item := range queue {
-	// 	fmt.Println("item", item, time.Now())
-	// }
+    // fatal error: all goroutines are asleep - deadlock!
+    // for item := range queue {
+    //     fmt.Println("item", item, time.Now())
+    // }
 
-	close(queue)
-	fmt.Println("closed", time.Now())
+    close(queue)
+    fmt.Println("closed", time.Now())
 
-	for item := range queue {
-		fmt.Println("item", item, time.Now())
-	}
-	
-	fmt.Println("done", time.Now())
+    for item := range queue {
+        fmt.Println("item", item, time.Now())
+    }
+    
+    fmt.Println("done", time.Now())
 
 }
 
@@ -308,27 +308,27 @@ example2
 ```go
 func TestRange(t *testing.T) {
 
-	queue := make(chan string, 2)
-	done := make(chan bool)
+    queue := make(chan string, 2)
+    done := make(chan bool)
 
-	go func() {
+    go func() {
 
-		for item := range queue {
-			fmt.Println("item", item, time.Now())
-			time.Sleep(2 * time.Second)
-		}
-		done <- true
-	}()
+        for item := range queue {
+            fmt.Println("item", item, time.Now())
+            time.Sleep(2 * time.Second)
+        }
+        done <- true
+    }()
 
-	fmt.Println("run", time.Now())
-	queue <- "one"
-	queue <- "two"
+    fmt.Println("run", time.Now())
+    queue <- "one"
+    queue <- "two"
 
-	time.Sleep(1 * time.Second)
-	close(queue)
-	fmt.Println("closed", time.Now())
+    time.Sleep(1 * time.Second)
+    close(queue)
+    fmt.Println("closed", time.Now())
 
-	fmt.Println("done", <-done, time.Now())
+    fmt.Println("done", <-done, time.Now())
 
 }
 
@@ -344,24 +344,24 @@ func TestRange(t *testing.T) {
 
 ```go
 func TestTimer(t *testing.T) {
-	fmt.Println("run", time.Now())
+    fmt.Println("run", time.Now())
 
-	timer1 := time.NewTimer(2 * time.Second)
-	t1, ok := <-timer1.C
-	fmt.Println("timer1 fired", t1, ok)
+    timer1 := time.NewTimer(2 * time.Second)
+    t1, ok := <-timer1.C
+    fmt.Println("timer1 fired", t1, ok)
 
-	timer2 := time.NewTimer(time.Second)
-	go func() {
-		t2, ok := <-timer2.C
-		fmt.Println("timer2 fired", t2, ok)
-	}()
-	ok = timer2.Stop()
-	if ok {
-		fmt.Println("timer2 stopped", time.Now())
-	}
+    timer2 := time.NewTimer(time.Second)
+    go func() {
+        t2, ok := <-timer2.C
+        fmt.Println("timer2 fired", t2, ok)
+    }()
+    ok = timer2.Stop()
+    if ok {
+        fmt.Println("timer2 stopped", time.Now())
+    }
 
-	time.Sleep(2 * time.Second)
-	fmt.Println("done", time.Now())
+    time.Sleep(2 * time.Second)
+    fmt.Println("done", time.Now())
 }
 
 
@@ -376,26 +376,26 @@ func TestTimer(t *testing.T) {
 
 ```go
 func TestTicker(t *testing.T) {
-	tk := time.NewTicker(500 * time.Millisecond)
-	done := make(chan bool)
-	go func() {
-		for {
-			select {
-			case t1, ok := <-tk.C:
-				fmt.Println("tick at", t1, ok)
-			case <-done:
-				fmt.Println("go done", time.Now())
-				return
-			}
-		}
-	}()
+    tk := time.NewTicker(500 * time.Millisecond)
+    done := make(chan bool)
+    go func() {
+        for {
+            select {
+            case t1, ok := <-tk.C:
+                fmt.Println("tick at", t1, ok)
+            case <-done:
+                fmt.Println("go done", time.Now())
+                return
+            }
+        }
+    }()
 
-	time.Sleep(1600 * time.Millisecond)
-	tk.Stop()
-	fmt.Println("tick stopped", time.Now())
-	time.Sleep(1 * time.Second)
-	done <- true
-	fmt.Println("done", time.Now())
+    time.Sleep(1600 * time.Millisecond)
+    tk.Stop()
+    fmt.Println("tick stopped", time.Now())
+    time.Sleep(1 * time.Second)
+    done <- true
+    fmt.Println("done", time.Now())
 }
 
 
@@ -414,37 +414,37 @@ func TestTicker(t *testing.T) {
 
 ```go
 func TestWorkerPool(t *testing.T) {
-	const numJobs = 5
-	jobs := make(chan int, numJobs)
-	results := make(chan int, numJobs)
-	fmt.Println("run", time.Now())
+    const numJobs = 5
+    jobs := make(chan int, numJobs)
+    results := make(chan int, numJobs)
+    fmt.Println("run", time.Now())
 
-	// 3 workers
-	for w := 1; w <= 3; w++ {
-		go func(id int, jobs <-chan int, results chan<- int) {
-			for j := range jobs {
-				fmt.Println("worker", id, "started job", j, time.Now())
-				time.Sleep(time.Second)
-				fmt.Println("worker", id, "finished job", j, time.Now())
-				results <- j * 2
-			}
-		}(w, jobs, results)
-	}
+    // 3 workers
+    for w := 1; w <= 3; w++ {
+        go func(id int, jobs <-chan int, results chan<- int) {
+            for j := range jobs {
+                fmt.Println("worker", id, "started job", j, time.Now())
+                time.Sleep(time.Second)
+                fmt.Println("worker", id, "finished job", j, time.Now())
+                results <- j * 2
+            }
+        }(w, jobs, results)
+    }
 
-	// 作业请求
-	for j := 1; j <= numJobs; j++ {
-		jobs <- j
-	}
-	close(jobs)
-	fmt.Println("jobs closed", time.Now())
+    // 作业请求
+    for j := 1; j <= numJobs; j++ {
+        jobs <- j
+    }
+    close(jobs)
+    fmt.Println("jobs closed", time.Now())
 
-	// 确保 goroutines 全部完成
-	for a := 1; a <= numJobs; a++ {
-		r := <-results
-		fmt.Println("results", r, time.Now())
-	}
+    // 确保 goroutines 全部完成
+    for a := 1; a <= numJobs; a++ {
+        r := <-results
+        fmt.Println("results", r, time.Now())
+    }
 
-	fmt.Println("done", time.Now())
+    fmt.Println("done", time.Now())
 }
 
 
@@ -473,38 +473,38 @@ func TestWorkerPool(t *testing.T) {
 
 ```go
 func TestRateLimit(t *testing.T) {
-	requests := make(chan int, 5)
-	for i := 1; i <= 5; i++ {
-		requests <- i
-	}
-	close(requests)
+    requests := make(chan int, 5)
+    for i := 1; i <= 5; i++ {
+        requests <- i
+    }
+    close(requests)
 
-	limiter := time.Tick(200 * time.Millisecond)
+    limiter := time.Tick(200 * time.Millisecond)
 
-	for req := range requests {
-		<-limiter
-		fmt.Println("request", req, time.Now())
-	}
+    for req := range requests {
+        <-limiter
+        fmt.Println("request", req, time.Now())
+    }
 
-	burstyLimiter := make(chan time.Time, 3)
-	for i := 0; i < 3; i++ {
-		burstyLimiter <- time.Now()
-	}
-	go func() {
-		for t := range time.Tick(200 * time.Millisecond) {
-			burstyLimiter <- t
-		}
-	}()
+    burstyLimiter := make(chan time.Time, 3)
+    for i := 0; i < 3; i++ {
+        burstyLimiter <- time.Now()
+    }
+    go func() {
+        for t := range time.Tick(200 * time.Millisecond) {
+            burstyLimiter <- t
+        }
+    }()
 
-	burstyRequests := make(chan int, 5)
-	for i := 1; i <= 5; i++ {
-		burstyRequests <- i
-	}
-	close(burstyRequests)
-	for req := range burstyRequests {
-		<-burstyLimiter
-		fmt.Println("request", req, time.Now())
-	}
+    burstyRequests := make(chan int, 5)
+    for i := 1; i <= 5; i++ {
+        burstyRequests <- i
+    }
+    close(burstyRequests)
+    for req := range burstyRequests {
+        <-burstyLimiter
+        fmt.Println("request", req, time.Now())
+    }
 }
 
 
@@ -532,8 +532,8 @@ deadlock1
 
 ```go
 func TestDeadlock(t *testing.T) {
-	c1 := make(chan int)
-	c1 <- 1
+    c1 := make(chan int)
+    c1 <- 1
 }
 
 
@@ -546,8 +546,8 @@ deadlock2
 
 ```go
 func TestDeadlock(t *testing.T) {
-	c1 := make(chan int)
-	<-c1
+    c1 := make(chan int)
+    <-c1
 }
 
 

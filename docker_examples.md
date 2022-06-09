@@ -168,11 +168,11 @@ nslookup
 
 ```bash
 docker run --rm tutum/dnsutils nslookup zhihu.com
-# Server:		10.xx.xx.1
-# Address:	10.xx.xx.1#53
+# Server:        10.xx.xx.1
+# Address:    10.xx.xx.1#53
 
 # Non-authoritative answer:
-# Name:	zhihu.com
+# Name:    zhihu.com
 # Address: 103.41.167.234
 
 ```
@@ -188,10 +188,10 @@ docker run --rm tutum/dnsutils dig zhihu.com
 # ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
 # ;; QUESTION SECTION:
-# ;zhihu.com.			IN	A
+# ;zhihu.com.            IN    A
 
 # ;; ANSWER SECTION:
-# zhihu.com.		120	IN	A	103.41.167.234
+# zhihu.com.        120    IN    A    103.41.167.234
 
 # ;; Query time: 0 msec
 # ;; SERVER: 10.52.44.1#53(10.52.44.1)

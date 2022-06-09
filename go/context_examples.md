@@ -47,33 +47,33 @@ type Context interface {
 
 ```go
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
+    ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+    defer cancel()
 
-	fmt.Println("pre handle", "time", time.Now())
+    fmt.Println("pre handle", "time", time.Now())
 
-	go handle(ctx, 500*time.Millisecond)
-	go handle(ctx, 1500*time.Millisecond)
+    go handle(ctx, 500*time.Millisecond)
+    go handle(ctx, 1500*time.Millisecond)
 
-	select {
-	case <-ctx.Done():
-		fmt.Println("main", ctx.Err())
-	}
+    select {
+    case <-ctx.Done():
+        fmt.Println("main", ctx.Err())
+    }
 
-	fmt.Println("pre sleep", "time", time.Now())
-	time.Sleep(1 * time.Second)
-	fmt.Println("all done", "time", time.Now())
+    fmt.Println("pre sleep", "time", time.Now())
+    time.Sleep(1 * time.Second)
+    fmt.Println("all done", "time", time.Now())
 }
 
 func handle(ctx context.Context, duration time.Duration) {
-	select {
-	case <-ctx.Done():
-		dl, ok := ctx.Deadline()
-		fmt.Println("handle", ctx.Err(), "deadline", dl, "ok", ok)
-	case <-time.After(duration):
-		dl, ok := ctx.Deadline()
-		fmt.Println("process request with", duration, "deadline", dl, "ok", ok)
-	}
+    select {
+    case <-ctx.Done():
+        dl, ok := ctx.Deadline()
+        fmt.Println("handle", ctx.Err(), "deadline", dl, "ok", ok)
+    case <-time.After(duration):
+        dl, ok := ctx.Deadline()
+        fmt.Println("process request with", duration, "deadline", dl, "ok", ok)
+    }
 }
 
 
@@ -98,44 +98,44 @@ func handle(ctx context.Context, duration time.Duration) {
 
 ```go
 func Background() Context {
-	return background
+    return background
 }
 
 func TODO() Context {
-	return todo
+    return todo
 }
 
 type emptyCtx int
 
 func (*emptyCtx) Deadline() (deadline time.Time, ok bool) {
-	return
+    return
 }
 
 func (*emptyCtx) Done() <-chan struct{} {
-	return nil
+    return nil
 }
 
 func (*emptyCtx) Err() error {
-	return nil
+    return nil
 }
 
 func (*emptyCtx) Value(key interface{}) interface{} {
-	return nil
+    return nil
 }
 
 func (e *emptyCtx) String() string {
-	switch e {
-	case background:
-		return "context.Background"
-	case todo:
-		return "context.TODO"
-	}
-	return "unknown empty Context"
+    switch e {
+    case background:
+        return "context.Background"
+    case todo:
+        return "context.TODO"
+    }
+    return "unknown empty Context"
 }
 
 var (
-	background = new(emptyCtx)
-	todo       = new(emptyCtx)
+    background = new(emptyCtx)
+    todo       = new(emptyCtx)
 )
 
 ```
@@ -144,27 +144,27 @@ var (
 
 ```go
 func TestWithCancel(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	go func(ctx context.Context) {
-		for {
-			select {
-			case <-ctx.Done():
-				fmt.Println("ctxDone...", time.Now())
-				return
-			default:
-				fmt.Println("defaultContinue...", time.Now())
-				time.Sleep(1 * time.Second)
-			}
-		}
-	}(ctx)
+    ctx, cancel := context.WithCancel(context.Background())
+    go func(ctx context.Context) {
+        for {
+            select {
+            case <-ctx.Done():
+                fmt.Println("ctxDone...", time.Now())
+                return
+            default:
+                fmt.Println("defaultContinue...", time.Now())
+                time.Sleep(1 * time.Second)
+            }
+        }
+    }(ctx)
 
-	time.Sleep(5 * time.Second)
-	fmt.Println("preCancel", time.Now())
-	cancel()
-	fmt.Println("Canceled", time.Now())
+    time.Sleep(5 * time.Second)
+    fmt.Println("preCancel", time.Now())
+    cancel()
+    fmt.Println("Canceled", time.Now())
 
-	time.Sleep(1 * time.Second)
-	fmt.Println("done", time.Now())
+    time.Sleep(1 * time.Second)
+    fmt.Println("done", time.Now())
 }
 
 
@@ -183,14 +183,14 @@ func TestWithCancel(t *testing.T) {
 
 ```go
 func TestWithValue(t *testing.T) {
-	ctx := context.WithValue(context.Background(), "myKey", "myVal")
+    ctx := context.WithValue(context.Background(), "myKey", "myVal")
 
-	go func(ctx context.Context) {
-		fmt.Println("ctx", "myKey", ctx.Value("myKey"), time.Now())
-	}(ctx)
+    go func(ctx context.Context) {
+        fmt.Println("ctx", "myKey", ctx.Value("myKey"), time.Now())
+    }(ctx)
 
-	time.Sleep(1 * time.Second)
-	fmt.Println("done", time.Now())
+    time.Sleep(1 * time.Second)
+    fmt.Println("done", time.Now())
 }
 
 
