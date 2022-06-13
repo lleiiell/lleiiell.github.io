@@ -279,7 +279,7 @@ func TestSplitSpace(t *testing.T) {
 // spaces.
 ```
 
-## refs
+## 参考
 
 - [regular expressions - gobyexample.com](https://gobyexample.com/regular-expressions)
 - [regular expressions - golangprograms.com](https://www.golangprograms.com/regular-expressions.html)
