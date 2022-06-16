@@ -15,7 +15,7 @@
 
 ### TCP 连接
 
-![三次握手和四次挥手的状态转换](../img/network-2020-05-22-21-50-40.png)
+<img src="../img/network-2020-05-22-21-50-40.png" width="600" alt="三次握手和四次挥手的状态转换">
 
 ### TCP 状态图
 
@@ -63,9 +63,9 @@
 
 拥塞控制采用了四种算法：慢启动、拥塞避免、快重传和快恢复。
 
-![tcp congest control](../img/tcp-congest-1-220616.png)
+<img src="../img/tcp-congest-1-220616.png" width=600 alt="tcp congest control">
 
-![tcp congest control](../img/tcp-congest-2-220616.png)
+<img src="../img/tcp-congest-2-220616.png" width=600 alt="tcp congest control">
 
 
 慢启动(Slow Start)
