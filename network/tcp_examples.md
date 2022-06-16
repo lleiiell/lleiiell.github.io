@@ -115,4 +115,4 @@
 - [TCP连接的状态详解以及故障排查 - cloud.tencent.com](https://cloud.tencent.com/developer/article/1347046)
 - [三次握手和四次挥手 - juejin.cn](https://juejin.cn/post/6844903958624878606)
 - [TCP 状态图 - wikipedia.org](https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png)
-- [5G 网络中 TCP 拥塞控制的全面概述 | mdpi ](https://www.mdpi.com/1424-8220/21/13/4510)
+- [5G 网络中 TCP 拥塞控制的全面概述 - mdpi ](https://www.mdpi.com/1424-8220/21/13/4510)
