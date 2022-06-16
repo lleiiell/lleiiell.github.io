@@ -59,8 +59,60 @@
 - TCP 首部开销20字节，UDP的首部开销小，只有8个字节
 - TCP 的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道
 
+### 拥塞控制
+
+拥塞控制采用了四种算法：慢启动、拥塞避免、快重传和快恢复。
+
+![tcp congest control](../img/tcp-congest-1-220616.png)
+
+![tcp congest control](../img/tcp-congest-2-220616.png)
+
+
+慢启动(Slow Start)
+
+- 不要一开始就发送大量的数据，先探测一下网络的拥塞程度
+  - 也就是说由小到大逐渐增加拥塞窗口的大小
+  - 拥塞窗口 cwnd（Congestion Window），以字节为单位
+- 算法：当发送方每收到一个 ACK，拥塞窗口 cwnd 的大小就会加 1
+  - 指数增长
+- 慢启动的目的是逐渐增加发送速度进行试探，直到进入拥塞避免阶段
+  - 慢启动门限 ssthresh（slow start threshold），一般是 65535 字节
+    - 当 cwnd 超过该值后，慢启动结束，进入拥塞避免阶段
+
+
+拥塞避免（Congestion Voidance）
+
+- 拥塞避免算法就是将原本慢启动算法的指数增长变成了线性增长
+  - 还是增长阶段，但是增长速度缓慢了一些
+- 算法：每当收到一个 ACK 时，cwnd 增加 1/cwnd
+- 随着 cwnd 持续增长，网络慢慢进入拥塞状况，出现丢包现象
+  - 这时，需要对丢失的数据包重传
+    - 重传机制：超时重传、快重传
+- 当触发了重传机制，也就进入了拥塞发生算法
+
+
+快重传（Fast Retransmit）
+
+- 当接收方发现丢了一个中间包的时候，发送 3 次前一个包的 ACK
+- 发送方只要一连收到三个重复确认（ACK）就应当立即重传对方尚未收到的报文段
+  - 而不必继续等待设置的重传计时器时间到期
+- 进入快速恢复算法
+
+
+快恢复（Fast Recovery）
+
+- 快恢复是快速重传的后续处理
+  - 考虑到如果网络出现拥塞的话就不会收到好几个重复的确认
+    - 所以发送方现在认为网络可能没有出现拥塞
+- 算法：将 cwnd 设置为当前值的一半
+  - cwnd = cwnd/2
+  - ssthresh = cwnd
+- 然后执行拥塞避免算法
+
+
 ## 参考
 
 - [TCP连接的状态详解以及故障排查 - cloud.tencent.com](https://cloud.tencent.com/developer/article/1347046)
 - [三次握手和四次挥手 - juejin.cn](https://juejin.cn/post/6844903958624878606)
 - [TCP 状态图 - wikipedia.org](https://en.wikipedia.org/wiki/File:Tcp_state_diagram.png)
+- [5G 网络中 TCP 拥塞控制的全面概述 | mdpi ](https://www.mdpi.com/1424-8220/21/13/4510)
