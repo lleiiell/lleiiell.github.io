@@ -52,7 +52,7 @@ IBM Spectrum MPI (Message Passing Interface)  广泛用于高性能计算 HPC �
 
 IBM Spectrum MPI 包含高级 CPU 关联特性、网络接口库的动态选择、卓越的工作负载管理器集成和改进的性能。它支持广泛的行业标准平台、互连和开放 API，以帮助确保并行应用程序几乎可以在任何地方运行。
 
-	 
+
 
 **6、IBM Spectrum LSF 许可调度程序**
 
