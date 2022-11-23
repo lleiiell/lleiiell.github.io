@@ -21,18 +21,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: hello-deployment
   labels:
-    app: nginx
+    app: hello-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: hello-deployment
   template:
     metadata:
       labels:
-        app: nginx
+        app: hello-deployment
     spec:
       containers:
       - name: nginx
@@ -77,7 +77,7 @@ kind: Pod
 metadata:
   name: hello-pod4service
   labels:
-    app.kubernetes.io/name: proxy
+    app: hello-pod4service
 spec:
   containers:
   - name: nginx
@@ -93,7 +93,7 @@ metadata:
   name: hello-service
 spec:
   selector:
-    app.kubernetes.io/name: proxy
+    app: hello-pod4service
   ports:
   - name: name-of-service-port
     protocol: TCP
@@ -115,9 +115,31 @@ spec:
       containers:
       - name: hello
         image: busybox:1.28
-        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 60']
       restartPolicy: OnFailure
     # The pod template ends here
+```
+
+输出
+
+```bash
+k get jobs
+# NAME        COMPLETIONS   DURATION   AGE
+# hello-job   0/1           36s        36s
+
+k get pods
+# NAME              READY   STATUS    RESTARTS   AGE
+# hello-job-bqnrp   1/1     Running   0          18s
+
+
+k get jobs
+# NAME        COMPLETIONS   DURATION   AGE
+# hello-job   1/1           77s        94s
+
+k get pods
+# NAME              READY   STATUS      RESTARTS   AGE
+# hello-job-bqnrp   0/1     Completed   0          87s
+
 ```
 
 ### StatefulSet
@@ -280,12 +302,20 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: registry.k8s.io/busybox
+      image: busybox:1.28
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
-          name: mysecret
+          name: hello-secret
   restartPolicy: Never
+```
+
+输出
+
+```bash
+k logs hello-pod4secret 
+# PASSWORD=1f2d1e2e67df
+# USER_NAME=admin
 ```
 
 ### 参考
