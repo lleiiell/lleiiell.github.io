@@ -2,6 +2,7 @@
 
 ## New
 
+- [Go interface examples](go/interface_examples.md)
 - [tcpdump examples](./network/tcpdump_examples.md)
 - [LSF、SLURM、OPENPBS 等 HPC 调度器对比](./cloud/hpc_scheduler.md)
 
