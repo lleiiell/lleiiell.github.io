@@ -3,25 +3,31 @@
 ### hello interface
 
 ```go
-type User struct {
-    Name string
+type error interface {
+    Error() string
 }
 
-func (u *User) Hello() {
-    fmt.Println("hello ", u.Name)
+type MyError struct {
+    When time.Time
+    What string
 }
 
-func TestInterfaceHello(t *testing.T) {
-    type helloInterface interface {
-        Hello()
+func (e *MyError) Error() string {
+    return fmt.Sprintf("at %v, %s",
+        e.When, e.What)
+}
+
+func TestInterfaceError(t *testing.T) {
+
+    var err error
+    err = &MyError{When: time.Now(), What: "something's wrong"}
+
+    if err != nil {
+        // at 2022-11-24 09:43:24.774546757 +0800 CST m=+0.000640449, something's wrong
+        fmt.Println(err)
     }
 
-    var i helloInterface
-    i = &User{Name: "lt"}
-    // hello  lt
-    i.Hello()
 }
-
 ```
 
 ### 断言
@@ -97,3 +103,6 @@ type ReadWriter interface {
 ```
 
 ### 参考
+
+- https://gobyexample.com/interfaces
+- https://go.dev/tour/methods/19
