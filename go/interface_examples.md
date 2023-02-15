@@ -106,3 +106,4 @@ type ReadWriter interface {
 
 - https://gobyexample.com/interfaces
 - https://go.dev/tour/methods/19
+- https://www.geeksforgeeks.org/interfaces-in-golang/
