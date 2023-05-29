@@ -1,6 +1,6 @@
 # 《A Deep Dive into Kubernetes Scheduling》笔记
 
-原文链接：https://granulate.io/blog/a-deep-dive-into-kubernetes-scheduling/
+原文链接：[https://granulate.io/blog/a-deep-dive-into-kubernetes-scheduling/](https://granulate.io/blog/a-deep-dive-into-kubernetes-scheduling/)
 
 `Kubernetes Scheduler` 是 Kubernetes 控制面的核心组件之一。 其默认行为是将 `pod` 分配给节点，同时平衡节点之间的资源利用率。
 
