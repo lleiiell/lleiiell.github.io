@@ -2,6 +2,7 @@
 
 ## New
 
+- [《A Deep Dive into Kubernetes Scheduling》笔记](./cloud/a_deep_dive_into_kubernetes_scheduling_notes.md)
 - [Kubernetes examples](cloud/kubernetes_examples.md)
 - [Go interface examples](go/interface_examples.md)
 - [tcpdump examples](./network/tcpdump_examples.md)
