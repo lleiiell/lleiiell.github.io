@@ -2,11 +2,9 @@
 
 ## New
 
+- [Sed examples](misc/sed_examples.md)
 - [《A Deep Dive into Kubernetes Scheduling》笔记](./cloud/a_deep_dive_into_kubernetes_scheduling_notes.md)
 - [Kubernetes examples](cloud/kubernetes_examples.md)
-- [Go interface examples](go/interface_examples.md)
-- [tcpdump examples](./network/tcpdump_examples.md)
-- [LSF、SLURM、OPENPBS 等 HPC 调度器对比](./cloud/hpc_scheduler.md)
 
 ## Cloud
 
@@ -15,6 +13,7 @@
 
 ## Go
 
+- [Go interface examples](go/interface_examples.md)
 - [Go Channel examples](go/channel_examples.md)
 - [Go Context examples](go/context_examples.md)
 - [Go Regexp examples](go/regexp_examples.md)
@@ -27,5 +26,5 @@
 
 ## Misc
 
-- [Promql examples](promql_examples.md)
+- [Promql examples](misc/promql_examples.md)
 
