@@ -2,6 +2,7 @@
 
 ## New
 
+- [Kubernetes：加速 Pod 启动的方法](cloud/kubernetes-speed-up-pod-startup.md)
 - [Sed examples](misc/sed_examples.md)
 - [《A Deep Dive into Kubernetes Scheduling》笔记](./cloud/a_deep_dive_into_kubernetes_scheduling_notes.md)
 - [Kubernetes examples](cloud/kubernetes_examples.md)
