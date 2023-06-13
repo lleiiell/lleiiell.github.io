@@ -115,7 +115,8 @@ HiveD 的 buddy cell 分配算法通过动态绑定减少了 55% 的作业抢占
 图 5：96 卡 GPU 集群调度器 HiveD 对照实验
 
 图 5(a) 使用三个调度器评估租户 prod-a 的作业排队延迟。三个调度器在没有 HiveD 的情况下都表现出共享异常。
-在共享安全的情况下，HiveD 仍然可以保持调度效率。图 5(b) 显示，与没有 HiveD 的那些相比，HiveD 表现出相似的作业完成时间：最多差 3%（对于 YARN-CS）和 优 12%（对于 Gandiva）。
+在共享安全的情况下，HiveD 仍然可以保持调度效率。  
+图 5(b) 显示，与没有 HiveD 的那些相比，HiveD 表现出相似的作业完成时间：最多差 3%（对于 YARN-CS）和 优 12%（对于 Gandiva）。
 
 ### 5.2 共享安全：全程模拟
 
@@ -151,12 +152,12 @@ HiveD 的 buddy cell 分配算法通过动态绑定减少了 55% 的作业抢占
 - 碎片化研究
 
 ## 8 结语
-受到生产集群观察启发，并通过广泛的评估验证，HiveD 采用了一种新的方法来应对共享多租户 GPU 集群以进行深度学习的挑战，方法是 
-（i） 定义一个简单实用的共享安全性保障，
-（ii）提出一个亲和力感知资源抽象 cell 来模拟虚拟私有集群，
-（iii）开发一个优雅高效的 buddy cell  分配算法 ，它被证明可以保证共享安全且易于扩展至低优先级工作， 
-（iv） 设计一个灵活的可融合流行调度器的架构，以实现共享安全和调度效率。
-所有这些结合起来，HiveD 在共享安全和集群利用率等多个目标之间取得了适当的平衡。
+受到生产集群观察启发，并通过广泛的评估验证，HiveD 采用了一种新的方法来应对共享多租户 GPU 集群以进行深度学习的挑战，方法是  
+（i） 定义一个简单实用的共享安全性保障，  
+（ii）提出一个亲和力感知资源抽象 cell 来模拟虚拟私有集群，  
+（iii）开发一个优雅高效的 buddy cell  分配算法 ，它被证明可以保证共享安全且易于扩展至低优先级工作，   
+（iv） 设计一个灵活的可融合流行调度器的架构，以实现共享安全和调度效率。  
+所有这些结合起来，HiveD 在共享安全和集群利用率等多个目标之间取得了适当的平衡。  
 
 ## 附录
 ### 术语
@@ -170,6 +171,6 @@ HiveD 的 buddy cell 分配算法通过动态绑定减少了 55% 的作业抢占
 
 ## 相关文档
 
-[1] https://www.usenix.org/conference/osdi20/presentation/zhao-hanyu HiveD: Sharing a GPU Cluster for Deep Learning with Guarantees
-[2] https://dl.acm.org/doi/10.5555/3488766.3488795 eReader
-[3] https://github.com/microsoft/hivedscheduler 
+[1] https://www.usenix.org/conference/osdi20/presentation/zhao-hanyu HiveD: Sharing a GPU Cluster for Deep Learning with Guarantees  
+[2] https://dl.acm.org/doi/10.5555/3488766.3488795 eReader  
+[3] https://github.com/microsoft/hivedscheduler  
