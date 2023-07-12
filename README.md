@@ -2,12 +2,14 @@
 
 ## New
 
+- [GPT-4 架构，基础设施，训练数据集，成本，视觉，MoE](./ai/gpt4-arch.md)
 - [AntMan：DL GPU 集群动态伸缩](cloud/AntMan-Dynamic-Scaling-on-GPU-Clusters-for-Deep-Learning.md)
 - [HiveD：DL GPU 集群共享保障](cloud/HiveD-Sharing-a-GPU-Cluster-for-Deep-Learning-with-Guarantees.md)
 - [Gandiva：DL GPU 集群的内省式调度](cloud/Gandiva-Introspective-Cluster-Scheduling-for-Deep-Learning.md)
-- [Kubernetes：加速 Pod 启动的方法](cloud/kubernetes-speed-up-pod-startup.md)
-- [Sed examples](misc/sed_examples.md)
-- [《A Deep Dive into Kubernetes Scheduling》笔记](./cloud/a_deep_dive_into_kubernetes_scheduling_notes.md)
+
+## AI
+
+- [GPT-4 架构，基础设施，训练数据集，成本，视觉，MoE](./ai/gpt4-arch.md)
 
 ## Cloud
 
