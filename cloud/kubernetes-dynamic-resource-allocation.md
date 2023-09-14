@@ -21,7 +21,7 @@ DRA 使 GPU 设备能够在不同容器和 Pod 之间共享，以便您可以灵
 
 DRA 使用容器设备接口 (CDI) 作为通用规范，定义了设备资源从节点一直到运行时的样式。
 
-![DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们](img/2023-09-14-10-13-36.png)
+![DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们](img/2023-09-14-10-13-36.png)  
 DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们
 
 ### 路线图
@@ -170,15 +170,15 @@ type ResourceClaimSchedulingStatus struct {
 ### 规格示例
 Pod 申请资源时, 支持填写任意参数, 目前 Device Plugin 机制中申请资源只能通过在 resource.limits 填写资源请求量, 其他参数不支持
 
-申请单卡：
+申请单卡：  
 ![申请单卡](img/2023-09-14-10-22-00.png)
 
-申请多卡：
+申请多卡：  
 ![申请多卡](img/2023-09-14-10-22-21.png)
 
 ## 原理
 ### DRA 资源驱动程序剖析
-DRA 关联组件：
+DRA 关联组件：  
 ![DRA 关联组件](img/2023-09-14-10-22-44.png)
 
 驱动程序包含两个独立协调组件
@@ -195,7 +195,7 @@ kubelet 插件
 - 执行节点上 prepare 和 unprepare ResourceClaim 所需的任何节点本地操作
 - 将与准备好的 ResourceClaim 关联的设备集传递到 kubelet，以便它可以将它们转发到底层容器运行时
 
-kubelet 和 驱动插件之间的通信：
+kubelet 和 驱动插件之间的通信：  
 ![kubelet 和 驱动插件之间的通信](img/2023-09-14-10-23-28.png)
 
 ### DRA 分配资源
@@ -441,7 +441,6 @@ func (d driver) unsuitableNode(ctx context.Context, pod *corev1.Pod, allcas []*c
 
 资源分配：
 ```go
-
 func (d driver) Allocate(ctx context.Context, claim *resourcev1.ResourceClaim, claimParameters interface{}, class *resourcev1.ResourceClass, classParameters interface{}, selectedNode string) (*resourcev1.AllocationResult, error) {
 	if selectedNode == "" {
 		return nil, fmt.Errorf("TODO: immediate allocations not yet supported")
@@ -536,5 +535,30 @@ Spec:
 ## 附录
 
 ### 术语
+**CDI**（容器设备接口）是容器运行时的规范，用于支持第三方设备。它引入了设备作为资源的抽象概念。此类设备由完全限定名称唯一指定，该名称由供应商 ID、设备类别和每个供应商 ID-设备类别对唯一的名称构成。
+
+**KEP**（Kubernetes Enhancement Proposals）：Kubernetes 增强提案是一种提议、沟通和协调 Kubernetes 项目新工作的方式。此过程仍处于测试状态，并且对于从 1.14 版开始的所有增强功能都是强制性的。
+
+**WaitForFirstConsumer**：集群管理员可以通过指定 WaitForFirstConsumer 模式, 该模式将延迟 PersistentVolume 的绑定和配置，直到创建使用 PersistentVolumeClaim 的 Pod。将根据 Pod 调度约束指定的拓扑来选择或配置 PersistentVolume。这些包括但不限于资源要求、节点选择器、pod 亲和性和反亲和性以及污点和容忍度。
 
 ### 相关链接
+
+- https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
+- https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md
+- https://github.com/kubernetes/dynamic-resource-allocation
+- https://www.intel.com/content/www/us/en/developer/articles/technical/new-frameworks-for-kubernetes-resource-management.html Kubernetes 资源管理的新框架
+- https://kccnceu2023.sched.com/event/1HyWy/device-plugins-20-how-to-build-a-driver-for-dynamic-resource-allocation-kevin-klues-nvidia-alexey-fomenko-intel 设备插件 2.0
+- https://www.youtube.com/watch?v=_fi9asserLE
+- https://drive.google.com/file/d/1sU1ZhY4zNKBtXAeVx3sozHT0PuDz4-Qf/view 示例
+- https://kubernetes.io/zh-cn/blog/2022/12/15/dynamic-resource-allocation/
+- https://cloud.tencent.com/developer/article/2215920 Kubernetes 1.26: 动态资源分配 Alpha API
+- https://github.com/kubernetes-sigs/dra-example-driver example driver
+- https://github.com/intel/intel-resource-drivers-for-kubernetes intel
+- https://github.com/NVIDIA/k8s-dra-driver nvidia
+- https://pkg.go.dev/k8s.io/dynamic-resource-allocation/controller
+- https://pkg.go.dev/k8s.io/kubelet/pkg/apis/dra/v1alpha2 Kubelet Plugin API and Helper Library
+- https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin
+- https://github.com/cncf-tags/container-device-interface CDI
+- https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-scheduling-context-v1alpha2/
+- https://developer.aliyun.com/article/1272914 K8S下一代设备管理机制：DRA
+- https://github.com/kubernetes/kubernetes/blob/v1.28.1/pkg/scheduler/framework/plugins/dynamicresources/dynamicresources.go DynamicResources 调度插件
