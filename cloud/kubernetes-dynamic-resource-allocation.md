@@ -20,8 +20,7 @@ DRA 是 Kubernetes 1.26 中引入的 API。在此之前，Kubernetes 只能处�
 DRA 使 GPU 设备能够在不同容器和 Pod 之间共享，以便您可以灵活选择它们的使用方式。
 
 DRA 使用容器设备接口 (CDI) 作为通用规范，定义了设备资源从节点一直到运行时的样式。
-
-![DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们](img/2023-09-14-10-13-36.png)  
+![DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们](img/2023-09-14-11-06-18.png)  
 DRA API 可以轻松在 Kubernetes 中启用硬件设备并跨容器和 Pod 分配它们
 
 ### 路线图
@@ -135,8 +134,7 @@ spec:
      strategy: MPS
 
 ```
-
-![shared-gpu](img/2023-09-14-10-18-03.png)
+![shared-gpu](img/2023-09-14-11-07-06.png)
 
 
 **PodSchedulingContext**
@@ -171,15 +169,15 @@ type ResourceClaimSchedulingStatus struct {
 Pod 申请资源时, 支持填写任意参数, 目前 Device Plugin 机制中申请资源只能通过在 resource.limits 填写资源请求量, 其他参数不支持
 
 申请单卡：  
-![申请单卡](img/2023-09-14-10-22-00.png)
+![](img/2023-09-14-11-07-40.png)
 
 申请多卡：  
-![申请多卡](img/2023-09-14-10-22-21.png)
+![](img/2023-09-14-11-08-05.png)
 
 ## 原理
 ### DRA 资源驱动程序剖析
 DRA 关联组件：  
-![DRA 关联组件](img/2023-09-14-10-22-44.png)
+![](img/2023-09-14-11-08-28.png)
 
 驱动程序包含两个独立协调组件
 - 高可用性运行的集中控制器
@@ -302,11 +300,10 @@ dynamicresources 插件扩展点：
 - UnReserve 清除所有声明的预留
 - PostBind Pod 成功绑定到节点后调用, 删除 PodSchedulingContext 对象
 
-![调度器筛选节点, 创建 PodSchedulingContext 对象](img/2023-09-14-10-26-50.png)  
+![](img/2023-09-14-11-09-07.png)  
 调度器筛选节点, 创建 PodSchedulingContext 对象
 
-
-![驱动控制器筛选节点](img/2023-09-14-10-27-07.png)  
+![](img/2023-09-14-11-10-25.png)  
 驱动控制器筛选节点
 
 
