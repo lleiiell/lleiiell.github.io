@@ -2,6 +2,7 @@
 
 ## New
 
+- [白话GPU共享术语](./ai/gpu-share-definition.md)
 - [容器设备接口 (CDI) 介绍](./cloud/cdi-intro.md)
 - [Kubernetes DRA 特性调研](./cloud/kubernetes-dynamic-resource-allocation.md)
 - [AntMan：DL GPU 集群动态伸缩](cloud/AntMan-Dynamic-Scaling-on-GPU-Clusters-for-Deep-Learning.md)
@@ -9,6 +10,7 @@
 - [Gandiva：DL GPU 集群的内省式调度](cloud/Gandiva-Introspective-Cluster-Scheduling-for-Deep-Learning.md)
 
 ## AI
+- [白话GPU共享术语](./ai/gpu-share-definition.md)
 - [GPT-4 架构，基础设施，训练数据集，成本，视觉，MoE](./ai/gpt4-arch.md)
 
 ## Cloud
