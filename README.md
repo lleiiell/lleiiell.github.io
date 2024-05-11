@@ -2,6 +2,7 @@
 
 ## New
 
+- [Run.AI调研报告](./ai/run-ai.md)
 - [白话GPU共享术语](./ai/gpu-share-definition.md)
 - [容器设备接口 (CDI) 介绍](./cloud/cdi-intro.md)
 - [Kubernetes DRA 特性调研](./cloud/kubernetes-dynamic-resource-allocation.md)
