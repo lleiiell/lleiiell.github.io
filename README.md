@@ -2,7 +2,7 @@
 
 ## New
 
-- [Kubeblocks 学习笔记](./cloud/kubeblocks_notes.md)
+- [Kubeblocks调研报告](./cloud/kubeblocks.md)
 - [Run.AI调研报告](./ai/run-ai.md)
 - [白话GPU共享术语](./ai/gpu-share-definition.md)
 - [容器设备接口 (CDI) 介绍](./cloud/cdi-intro.md)
